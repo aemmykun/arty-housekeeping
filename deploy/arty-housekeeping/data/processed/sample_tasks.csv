@@ -1,0 +1,9 @@
+Room,Date,Service Required,Est. Time (min),Assigned To,Current Status,Comments
+101,2025-11-14,Departure Clean,35,Maria Santos,New,Checkout 11:00 AM
+102,2025-11-14,Arrival Prep,25,,New,Checkin 3:00 PM
+103,2025-11-14,Full Service,45,John Kim,In Progress,Started 9:30 AM
+201,2025-11-14,Daily Service,35,Maria Santos,Done,Completed 10:45 AM
+202,2025-11-14,Departure Clean,60,,New,Late checkout - extra fee applied
+203,2025-11-14,Weekly Deep Clean,50,Sarah Chen,Inspect,Quality check pending
+301,2025-11-14,Daily Service,25,John Kim,New,Guest declined service yesterday
+302,2025-11-14,Arrival Prep,45,Sarah Chen,In Progress,VIP arrival - extra amenities

@@ -1,0 +1,13 @@
+room_number,service_date,service_type,estimated_minutes,assigned_staff,status,notes
+101,2025-11-14,DEPARTURE,35,Maria Santos,NEW,Checkout 11:00 AM
+102,2025-11-14,ARRIVAL,25,,NEW,Checkin 3:00 PM
+103,2025-11-14,FULL,45,John Kim,IN_PROGRESS,Started 9:30 AM
+201,2025-11-14,DAILY,35,Maria Santos,DONE,Completed 10:45 AM
+202,2025-11-14,DEPARTURE,60,,NEW,Late checkout - extra fee applied
+203,2025-11-14,WEEKLY,50,Sarah Chen,INSPECT,Quality check pending
+301,2025-11-14,DAILY,25,John Kim,NEW,Guest declined service yesterday
+302,2025-11-14,ARRIVAL,45,Sarah Chen,IN_PROGRESS,VIP arrival - extra amenities
+401,2025-11-14,DAILY,35,Maria Santos,NEW,Standard daily service
+402,2025-11-14,DEPARTURE,35,John Kim,NEW,Morning checkout
+501,2025-11-14,FULL,60,,NEW,Deep clean required
+502,2025-11-14,ARRIVAL,60,Sarah Chen,NEW,Premium suite setup

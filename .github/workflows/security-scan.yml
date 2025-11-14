@@ -1,0 +1,38 @@
+name: Security checks
+
+on:
+  pull_request:
+    paths:
+      - '**/*'
+
+jobs:
+  npm-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install and audit
+        run: |
+          cd deploy/arty-housekeeping/node-server
+          npm ci
+          npm audit --audit-level=moderate || true
+          cd ../next-app
+          npm ci
+          npm audit --audit-level=moderate || true
+
+  zap-scan:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Run OWASP ZAP baseline (requires DOCKER)
+        run: |
+          echo "If you want an automated ZAP scan, set the STAGING_URL secret and enable Docker runners."
+          if [ -n "${{ secrets.STAGING_URL }}" ]; then
+            docker run --rm owasp/zap2docker-stable zap-baseline.py -t "${{ secrets.STAGING_URL }}" -r zap_report.html || true
+            echo "ZAP scan finished. Report: zap_report.html"
+          else
+            echo "STAGING_URL not set, skipping ZAP"
+          fi

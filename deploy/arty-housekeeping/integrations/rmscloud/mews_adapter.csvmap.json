@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "vendor": "MEWS",
+    "version": "1.0",
+    "description": "Field mapping from MEWS API to ARTY canonical schema", 
+    "last_updated": "2025-11-14"
+  },
+  "rooms_mapping": {
+    "Number": "room_number",
+    "CategoryId": "room_type_raw",
+    "State": "status_raw",
+    "OccupancyCount": "occupancy",
+    "Notes": "notes"
+  },
+  "tasks_mapping": {
+    "SpaceNumber": "room_number", 
+    "Date": "service_date",
+    "Type": "service_type_raw",
+    "Duration": "estimated_minutes",
+    "AssigneeId": "assigned_staff",
+    "State": "status_raw", 
+    "Description": "notes"
+  },
+  "enum_mappings": {
+    "room_type": {
+      "bed-1": "1BR",
+      "bed-2": "2BR", 
+      "bed-3": "3BR",
+      "studio": "STUDIO",
+      "twin": "TWIN",
+      "sofa": "SOFA",
+      "rollaway": "ROLLAWAY"
+    },
+    "status": {
+      "Dirty": "DIRTY",
+      "Clean": "CLEAN",
+      "InProgress": "IN_PROGRESS", 
+      "OutOfOrder": "DIRTY",
+      "Inspected": "INSPECT"
+    },
+    "service_type": {
+      "Maintenance": "DAILY",
+      "Cleaning": "FULL",
+      "DeepClean": "WEEKLY",
+      "Checkout": "DEPARTURE", 
+      "Checkin": "ARRIVAL"
+    },
+    "task_status": {
+      "Pending": "NEW",
+      "InProgress": "IN_PROGRESS",
+      "Completed": "DONE",
+      "Reviewed": "INSPECT"
+    }
+  },
+  "api_endpoints": {
+    "base_url": "https://api.mews.com",
+    "rooms": "/api/connector/v1/spaces/getAll",
+    "reservations": "/api/connector/v1/reservations/getAll",
+    "tasks": "/api/connector/v1/tasks/getAll", 
+    "update_task": "/api/connector/v1/tasks/update"
+  },
+  "authentication": {
+    "type": "bearer_token",
+    "header": "Authorization",
+    "client_token_required": true
+  },
+  "webhook_events": [
+    "SpaceEventCreated", 
+    "ReservationEventCreated",
+    "TaskEventCreated",
+    "TaskEventUpdated"
+  ]
+}

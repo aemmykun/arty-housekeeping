@@ -1,0 +1,5 @@
+Create a GitHub Actions workflow named 'validate-csv' that runs on pull_request. Steps:
+1) Setup Python 3.11
+2) pip install pandas
+3) Run `python tools/csv_sanity_check.py data/processed/sample.csv schemas/tasks.schema.csv`
+Fail the job if headers differ. Keep the workflow short and readable.

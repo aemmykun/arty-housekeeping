@@ -1,0 +1,274 @@
+<!-- ARTY™ PMS Add-On Housekeeping Dashboard (Stub) -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ARTY™ Housekeeping Command Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      :root {
+        /* Quest Theme Tokens */
+        --color-ink: #1B365D;
+        --color-bg: #FFFFFF;
+        --color-accent: #FF6B35;
+        --color-secondary: #4A90E2;
+        --color-success: #2ECC71;
+        --color-warning: #F39C12;
+        --color-error: #E74C3C;
+        --gradient-primary: linear-gradient(135deg, #4A90E2 0%, #8E44AD 100%);
+        --font-primary: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+      }
+      
+      [data-theme="light"] {
+        --color-ink: #101217;
+        --color-bg: #efeADF;
+        --color-accent: #228B22;
+      }
+      
+      [data-theme="dark"] {
+        --color-ink: #EFEADF;
+        --color-bg: #161a21;
+        --color-accent: #FF6B35;
+      }
+      
+      body {
+        font-family: var(--font-primary);
+        background: var(--gradient-primary);
+        color: var(--color-ink);
+        margin: 0;
+        min-height: 100vh;
+      }
+      
+      .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        padding: 1.5rem;
+      }
+    </style>
+  </head>
+  <body data-theme="quest" data-bind-rooms="data/processed/hotel_rooms.csv" data-bind-tasks="data/processed/hotel_tasks.csv" data-bind-staff="data/processed/hotel_staff.csv">
+    
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="glass-card" data-behavior="slide-out-after-auth" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+      <h2>ARTY™ Housekeeping Login</h2>
+      <form data-action="authenticate">
+        <input type="text" placeholder="Staff ID" data-field="staff_id" required>
+        <input type="password" placeholder="Password" data-field="password" required>
+        <button type="submit">Sign In</button>
+      </form>
+      <p style="position: absolute; bottom: 10px; right: 15px; font-size: 0.8em;">
+        Forgot password? Contact your admin
+      </p>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav data-component="top-nav" data-role-visibility="SUP,HM">
+      <div data-brand="ARTY™">Housekeeping Command Center</div>
+      <div data-actions="theme-switch,notifications,profile"></div>
+    </nav>
+
+    <!-- Hero Metrics Bar -->
+    <section id="hero-metrics" class="glass-card" data-update-interval="30s" 
+             data-metrics="rooms_ready,rooms_in_progress,departures_today,stayovers_today,team_capacity,linen_forecast,issues_count">
+      <div data-metric="rooms_ready" data-color="success" data-source="rooms.csv" data-filter="status=CLEAN"></div>
+      <div data-metric="rooms_in_progress" data-color="warning" data-source="rooms.csv" data-filter="status=IN_PROGRESS"></div>
+      <div data-metric="departures_today" data-color="accent" data-source="tasks.csv" data-filter="service_type=DEPARTURE"></div>
+      <div data-metric="stayovers_today" data-color="secondary" data-source="tasks.csv" data-filter="service_type=DAILY"></div>
+      <div data-metric="team_capacity" data-color="info" data-source="staff.csv" data-calculation="available_minutes/total_task_minutes"></div>
+      <div data-metric="issues_count" data-color="error" data-source="tasks.csv" data-filter="status=INSPECT"></div>
+    </section>
+
+    <!-- Live Timeline (QuestLogic AI) -->
+    <section id="live-timeline" class="glass-card" data-ai-engine="questlogic" data-predictions="room_readiness_eta">
+      <h3>Live Progress Timeline</h3>
+      <div data-timeline="staff" data-source="staff.csv" data-bind-tasks="tasks.csv">
+        <div data-staff-row data-template="staff_timeline" data-repeat="staff">
+          <span data-field="name"></span>
+          <div data-progress-bar data-calculated="current_task_progress"></div>
+          <span data-eta data-ai-predicted="completion_time"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Dashboard Grid -->
+    <main data-layout="supervisor" data-device="desktop" class="dashboard-grid">
+      
+      <!-- Left Panel: Rooms Board -->
+      <section id="rooms-board" data-view="grid" data-filter-controls="status,room_type,floor">
+        <header>
+          <h3>Rooms Status</h3>
+          <div data-filters>
+            <select data-filter="status" data-options="ALL,DIRTY,CLEAN,IN_PROGRESS,INSPECT"></select>
+            <select data-filter="room_type" data-options="ALL,1BR,2BR,3BR,STUDIO,TWIN,SOFA,ROLLAWAY"></select>
+          </div>
+        </header>
+        
+        <div data-rooms-grid data-source="rooms.csv" data-sortable="drag-drop" data-assign-target="staff">
+          <div data-room-tile data-template="room_card" data-repeat="rooms" 
+               data-status-color="status" data-draggable="true" data-drop-target="staff_assignment">
+            <div data-room-number data-field="room_number"></div>
+            <div data-room-type data-field="room_type" data-icon="room_type_icon"></div>
+            <div data-room-status data-field="status" data-color-coded="true"></div>
+            <div data-occupancy data-field="occupancy" data-hide-if-zero="true"></div>
+            <div data-notes data-field="notes" data-truncate="30"></div>
+            <div data-assigned-staff data-field="assigned_staff" data-source="staff.csv" data-lookup="staff_id"></div>
+            <div data-timer data-calculated="task_duration" data-format="mm:ss"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Center Panel: Task Assignment Engine -->
+      <section id="task-engine" data-ai-component="auto-assignment" data-questlogic="true">
+        <header>
+          <h3>Daily Task Assignment</h3>
+          <button data-action="auto-assign" data-ai-trigger="questlogic">Auto Assign Rooms</button>
+          <button data-action="optimize-routes" data-ai-trigger="zone-optimization">Optimize Routes</button>
+        </header>
+        
+        <div data-assignment-board data-source="tasks.csv" data-staff-source="staff.csv">
+          <div data-staff-column data-template="staff_assignment" data-repeat="available_staff"
+               data-drop-zone="true" data-capacity-warning="360">
+            <div data-staff-info>
+              <span data-field="name" data-source="staff"></span>
+              <span data-role data-field="role" data-source="staff"></span>
+              <span data-workload data-calculated="total_minutes" data-warning-threshold="330"></span>
+            </div>
+            <div data-assigned-tasks data-droppable="room_tasks" data-max-minutes="360">
+              <div data-task-item data-template="task_card" data-repeat="assigned_tasks">
+                <span data-field="room_number"></span>
+                <span data-field="service_type"></span>
+                <span data-field="estimated_minutes"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: AI Insights -->
+      <section id="ai-insights" data-questlogic-panel="true" data-refresh="60s">
+        <header>
+          <h3>QuestLogic™ Insights</h3>
+        </header>
+        
+        <div data-insights-feed>
+          <div data-insight data-type="prediction" data-ai-generated="labor_forecast">
+            <span data-message></span>
+            <span data-confidence data-field="confidence_score"></span>
+          </div>
+          <div data-insight data-type="bottleneck" data-ai-generated="bottleneck_detection">
+            <span data-message></span>
+            <span data-suggested-action data-field="recommendation"></span>
+          </div>
+          <div data-insight data-type="performance" data-ai-generated="staff_analytics">
+            <span data-staff-name></span>
+            <span data-performance-trend></span>
+            <span data-training-opportunity></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Mobile View (RA Interface) -->
+    <div data-device="mobile" data-role="RA" data-behavior="show-if-mobile-role" style="display: none;">
+      <header data-mobile-header>
+        <h2>My Tasks Today</h2>
+        <div data-staff-info data-source="staff.csv" data-current-user="true"></div>
+      </header>
+      
+      <div data-task-list data-source="tasks.csv" data-filter="assigned_staff=current_user">
+        <div data-task-card data-template="mobile_task" data-repeat="my_tasks">
+          <div data-room-info>
+            <span data-field="room_number"></span>
+            <span data-field="service_type"></span>
+          </div>
+          <div data-task-controls>
+            <button data-action="start-timer" data-room-ref="room_number">Start</button>
+            <button data-action="report-issue" data-photo-upload="true">Issue</button>
+            <button data-action="complete-task" data-submit-for="inspection">Complete</button>
+          </div>
+          <div data-sop-checklist data-service-type="service_type" data-collapsible="true">
+            <div data-checklist-item data-repeat="sop_items">
+              <input type="checkbox" data-field="completed">
+              <label data-field="description"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QC Inspector Mode -->
+    <div data-role="SUP" data-component="qc-mode" data-behavior="show-if-supervisor">
+      <section data-inspection-queue data-source="tasks.csv" data-filter="status=INSPECT">
+        <h3>Quality Control Queue</h3>
+        <div data-inspection-card data-template="qc_card" data-repeat="inspection_pending">
+          <div data-room-details>
+            <span data-field="room_number"></span>
+            <span data-field="assigned_staff"></span>
+            <span data-completed-time data-calculated="completion_timestamp"></span>
+          </div>
+          <div data-qc-scorecard data-room-ref="room_number">
+            <div data-score-category data-repeat="qc_categories">
+              <label data-field="category_name"></label>
+              <select data-score="1-5" data-field="score"></select>
+            </div>
+            <textarea data-field="qc_notes" placeholder="Inspector notes"></textarea>
+            <div data-qc-actions>
+              <button data-action="approve" data-update-status="DONE">Approve</button>
+              <button data-action="reject" data-update-status="NEW" data-notify="assigned_staff">Send Back</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Linen & Inventory Panel -->
+    <aside id="inventory-panel" data-source="inventory.csv" data-toggle="slide-out">
+      <h3>Linen & Inventory Status</h3>
+      <div data-inventory-alerts data-filter="current_qty<=reorder_threshold">
+        <div data-alert-item data-template="inventory_alert" data-repeat="low_stock">
+          <span data-field="name"></span>
+          <span data-field="current_qty"></span>
+          <span data-field="reorder_threshold"></span>
+          <button data-action="reorder" data-supplier-api="auto">Reorder</button>
+        </div>
+      </div>
+      
+      <div data-linen-forecast data-ai-component="linen-prediction">
+        <h4>Tomorrow's Linen Needs</h4>
+        <div data-forecast-item data-repeat="linen_forecast">
+          <span data-linen-type></span>
+          <span data-predicted-usage></span>
+          <span data-current-available></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Training Academy Integration -->
+    <div data-component="housekeeper-academy" data-trigger="training-opportunity" style="display: none;">
+      <div data-training-modal class="glass-card">
+        <h3>Training Opportunity Detected</h3>
+        <p data-training-reason></p>
+        <div data-training-modules data-recommended="true">
+          <button data-module="sop-refresher">SOP Refresher</button>
+          <button data-module="chemical-safety">Chemical Safety</button>
+          <button data-module="guest-service">Guest Service</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes for Framework Integration -->
+    <!-- 
+    INTEGRATION NOTES:
+    - All data-bind-* attributes connect to CSV data sources
+    - data-ai-* attributes indicate QuestLogic™ AI components
+    - data-role attributes control visibility by staff role
+    - data-device attributes enable responsive behavior
+    - data-questlogic enables predictive analytics features
+    - Preserve all data-* attributes when implementing in your framework
+    -->
+  </body>
+</html>

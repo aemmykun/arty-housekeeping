@@ -1,0 +1,11 @@
+staff_id,name,role,availability,max_minutes_per_day
+HK001,Maria Santos,RA,AVAILABLE,330
+HK002,John Kim,RA,AVAILABLE,330
+HK003,Sarah Chen,RA,AVAILABLE,330
+HK004,David Lopez,RA,ON_BREAK,330
+HM001,Jennifer Park,HM,AVAILABLE,360
+CA001,Michael Brown,CA,AVAILABLE,300
+SUP001,Lisa Wang,SUP,AVAILABLE,360
+HK005,Anna Rodriguez,RA,SICK_LEAVE,330
+HK006,Tom Wilson,RA,AVAILABLE,330
+CA002,Emma Davis,CA,AVAILABLE,300

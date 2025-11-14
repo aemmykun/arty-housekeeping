@@ -1,0 +1,1 @@
+Create a Flutter page 'HousekeepingDashboard' that reads a local CSV (same headers) and displays cards by status. Add theme switcher (light/dark/quest). Use minimal widgets; no backend. Keep code compact.

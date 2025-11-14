@@ -1,0 +1,4 @@
+room_number,room_type,status,occupancy,notes
+101,1BR,CLEAN,2,
+102,2BR,DIRTY,0,Requires deep clean
+103,STUDIO,CLEAN,1,Guest requested late checkout

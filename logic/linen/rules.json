@@ -1,0 +1,19 @@
+{
+  "cycle": {
+    "default": "3N",
+    "alt": [
+      "5N",
+      "8N"
+    ]
+  },
+  "monday_drop_for_8N": true,
+  "stayover_logic": [
+    "If stay > 5N, apply 3N cycle; if 8N, change after 2N then resume 3N.",
+    "If 8N change would fall on Monday, drop that change to Monday and continue cycle so service linen is on Tuesday."
+  ],
+  "bed_config_notes": [
+    "King: 1x King top + 2x King plain + 4 pillowcases (or 2).",
+    "Twin (T): two single beds \u2192 2x single top + 4x single plain.",
+    "Rollaway/Sofa: count on request; choose size mapping at setup."
+  ]
+}

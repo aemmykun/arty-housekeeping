@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "vendor": "Opera PMS",
+    "version": "5.0",
+    "description": "Field mapping from Opera PMS exports to ARTY canonical schema",
+    "last_updated": "2025-11-14"
+  },
+  "rooms_mapping": {
+    "RoomNo": "room_number",
+    "RoomType": "room_type_raw",
+    "HousekeepingStatus": "status_raw",
+    "GuestCount": "occupancy", 
+    "Remarks": "notes",
+    "RoomStatus": "status_raw"
+  },
+  "tasks_mapping": {
+    "Room": "room_number",
+    "ServiceDate": "service_date",
+    "TaskType": "service_type_raw",
+    "EstimatedTime": "estimated_minutes",
+    "AssignedStaff": "assigned_staff",
+    "TaskStatus": "status_raw",
+    "Comments": "notes"
+  },
+  "enum_mappings": {
+    "room_type": {
+      "1BR": "1BR",
+      "2BR": "2BR",
+      "3BR": "3BR", 
+      "STU": "STUDIO",
+      "STUDIO": "STUDIO",
+      "TWN": "TWIN",
+      "TWIN": "TWIN",
+      "SFA": "SOFA",
+      "SOFA": "SOFA",
+      "ROL": "ROLLAWAY"
+    },
+    "status": {
+      "DIRTY": "DIRTY",
+      "CLEAN": "CLEAN", 
+      "PROG": "IN_PROGRESS",
+      "INSP": "INSPECT",
+      "OOO": "DIRTY",
+      "OOS": "DIRTY",
+      "MAINT": "DIRTY"
+    },
+    "service_type": {
+      "DAILY": "DAILY",
+      "FULL": "FULL",
+      "WEEKLY": "WEEKLY", 
+      "CHECKOUT": "DEPARTURE",
+      "CHECKIN": "ARRIVAL",
+      "DEPARTURE": "DEPARTURE",
+      "ARRIVAL": "ARRIVAL"
+    },
+    "task_status": {
+      "NEW": "NEW",
+      "STARTED": "IN_PROGRESS",
+      "COMPLETE": "DONE", 
+      "INSPECT": "INSPECT",
+      "PENDING": "NEW"
+    }
+  },
+  "api_endpoints": {
+    "base_url": "https://opera.oracle.com/api/v1",
+    "rooms": "/rooms",
+    "reservations": "/reservations",
+    "housekeeping": "/housekeeping/tasks",
+    "update_status": "/housekeeping/status"
+  },
+  "soap_operations": [
+    "FetchHousekeepingRooms",
+    "UpdateRoomStatus", 
+    "CreateHousekeepingTask",
+    "CompleteHousekeepingTask"
+  ],
+  "webhook_events": [
+    "RoomStatusChanged",
+    "ReservationCreated",
+    "ReservationUpdated", 
+    "HousekeepingTaskAssigned",
+    "HousekeepingTaskCompleted"
+  ]
+}

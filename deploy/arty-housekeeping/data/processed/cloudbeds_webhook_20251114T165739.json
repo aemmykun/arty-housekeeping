@@ -1,0 +1,10 @@
+{
+  "reservation_id": 999,
+  "room_number": "501",
+  "status": "departure",
+  "guest_name": "Adapter Test 2",
+  "_meta": {
+    "vendor": "cloudbeds",
+    "mapped_at": "2025-11-14T16:57:39.478607"
+  }
+}

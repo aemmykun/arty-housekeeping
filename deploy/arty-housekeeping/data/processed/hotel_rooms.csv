@@ -1,0 +1,13 @@
+room_number,room_type,status,occupancy,notes
+101,1BR,DIRTY,2,Late checkout - extra linen
+102,STUDIO,CLEAN,0,
+103,2BR,IN_PROGRESS,4,VIP guest - fresh flowers
+201,1BR,INSPECT,0,
+202,3BR,DIRTY,6,Rollaway bed requested
+203,TWIN,CLEAN,0,Sofa bed setup required
+301,STUDIO,DIRTY,1,Extended stay - 8N linen cycle
+302,2BR,CLEAN,0,
+401,1BR,CLEAN,0,
+402,SOFA,DIRTY,2,Sofa bed configured
+501,ROLLAWAY,IN_PROGRESS,3,Additional bed setup
+502,3BR,CLEAN,0,Premium suite

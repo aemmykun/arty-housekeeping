@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "id": "reservation_id",
+    "room": "room_number",
+    "state": "status",
+    "guest": "guest_name"
+  },
+  "vendor": "rmscloud",
+  "notes": "RMSCloud -> canonical field mappings"
+}

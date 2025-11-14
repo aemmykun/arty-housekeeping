@@ -1,0 +1,11 @@
+You are Bubble AI building a dashboard page that binds to a CSV schema (tasks). Goals:
+1) Read CSV headers: room_number, service_date, service_type, estimated_minutes, assigned_staff, status, notes.
+2) Build a repeating group listing rooms with filters: status enum, service_type enum, date.
+3) Add quick actions: Reassign (dropdown staff), Mark Done, Send to Inspect.
+4) Create a translucent login overlay that slides out after login; "Forgot password? Contact your admin" in bottom-right.
+5) Theme tokens: quest/light/dark (accent, bg, ink).
+
+Output:
+- Minimal page structure with data bindings to an uploaded CSV data type.
+- Do not generate heavy custom code; use Bubble-native components.
+- Keep the overlay non-interactive until authenticated.

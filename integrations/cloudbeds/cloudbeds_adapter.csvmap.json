@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "vendor": "Cloudbeds",
+    "version": "2.0",
+    "description": "Field mapping from Cloudbeds exports to ARTY canonical schema",
+    "last_updated": "2025-11-14"
+  },
+  "rooms_mapping": {
+    "Room Number": "room_number",
+    "Room Type": "room_type_raw",
+    "Cleaning Status": "status_raw", 
+    "Guest Count": "occupancy",
+    "Special Notes": "notes"
+  },
+  "tasks_mapping": {
+    "Room": "room_number",
+    "Date": "service_date",
+    "Service Required": "service_type_raw",
+    "Est. Time (min)": "estimated_minutes",
+    "Assigned To": "assigned_staff",
+    "Current Status": "status_raw",
+    "Comments": "notes"
+  },
+  "enum_mappings": {
+    "room_type": {
+      "1 Bedroom": "1BR",
+      "2 Bedroom": "2BR", 
+      "3 Bedroom": "3BR",
+      "Studio": "STUDIO",
+      "Twin Room": "TWIN",
+      "Sofa Room": "SOFA",
+      "Rollaway": "ROLLAWAY"
+    },
+    "status": {
+      "Dirty": "DIRTY",
+      "Clean": "CLEAN",
+      "In Progress": "IN_PROGRESS",
+      "Ready for Inspection": "INSPECT",
+      "Cleaning": "IN_PROGRESS",
+      "Out of Order": "DIRTY",
+      "Out of Service": "DIRTY"
+    },
+    "service_type": {
+      "Daily Service": "DAILY",
+      "Full Service": "FULL", 
+      "Weekly Deep Clean": "WEEKLY",
+      "Departure Clean": "DEPARTURE",
+      "Arrival Prep": "ARRIVAL",
+      "Checkout": "DEPARTURE",
+      "Checkin": "ARRIVAL"
+    },
+    "task_status": {
+      "New": "NEW",
+      "In Progress": "IN_PROGRESS", 
+      "Done": "DONE",
+      "Completed": "DONE",
+      "Inspect": "INSPECT",
+      "Quality Check": "INSPECT"
+    }
+  },
+  "api_endpoints": {
+    "base_url": "https://hotels.cloudbeds.com/api/v1.1",
+    "rooms": "/getRooms",
+    "reservations": "/getReservations", 
+    "housekeeping": "/getHousekeeping",
+    "update_room_status": "/putRoom"
+  },
+  "webhook_events": [
+    "reservation.created",
+    "reservation.updated", 
+    "reservation.cancelled",
+    "room.status_changed",
+    "housekeeping.task_completed"
+  ]
+}

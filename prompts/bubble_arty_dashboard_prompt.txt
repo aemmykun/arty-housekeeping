@@ -1,0 +1,43 @@
+You are building a Bubble web app dashboard for ARTY™ PMS Add-On Housekeeping Management. This integrates with hotel PMS systems to provide real-time housekeeping operations control.
+
+CORE REQUIREMENTS:
+
+1. DATA SOURCES (CSV Upload):
+- Rooms: room_number, room_type (1BR|2BR|3BR|STUDIO|TWIN|SOFA|ROLLAWAY), status (DIRTY|CLEAN|IN_PROGRESS|INSPECT), occupancy, notes
+- Tasks: room_number, service_date, service_type (DAILY|FULL|WEEKLY|DEPARTURE|ARRIVAL), estimated_minutes, assigned_staff, status (NEW|IN_PROGRESS|DONE|INSPECT), notes  
+- Staff: staff_id, name, role (RA|HM|CA|SUP), availability (AVAILABLE|ON_BREAK|SICK_LEAVE), max_minutes_per_day
+
+2. DASHBOARD COMPONENTS:
+- Hero metrics bar: rooms ready, in progress, dirty, team capacity vs workload
+- Rooms grid: visual cards with drag-drop assignment to staff
+- Staff assignment board: columns per staff member with workload calculations
+- Real-time progress tracking: animated timers, completion ETAs
+- QC inspection queue: supervisor approval workflow
+
+3. MULTI-ROLE INTERFACE:
+- Supervisor view: full dashboard with assignment controls
+- RA mobile view: my tasks list, timer controls, issue reporting
+- QC inspector: quality scorecard, approve/reject workflow
+- Manager analytics: performance trends, forecasting
+
+4. QUESTLOGIC AI FEATURES:
+- Auto-assign button: optimal room-to-staff assignments
+- Bottleneck alerts: "Floor 3 congestion detected"  
+- Performance insights: training recommendations
+- Predictive ETAs: AI-calculated completion times
+
+5. PMS INTEGRATION READY:
+- Webhook endpoints for room status updates
+- CSV import/export for initial data sync
+- Real-time status push to PMS systems
+- Audit trail for all housekeeping actions
+
+BUBBLE IMPLEMENTATION:
+- Use Repeating Groups for rooms grid and staff columns
+- Create Option Sets for enums (room_type, status, service_type)
+- Implement custom states for real-time updates
+- Add conditional formatting for status colors
+- Build responsive design for mobile RA interface
+- Include workflow triggers for auto-assignment logic
+
+THEME: Quest brand with royal blue gradients, coral accents, glassmorphism cards.

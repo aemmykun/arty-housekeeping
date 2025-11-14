@@ -1,0 +1,3 @@
+item_code,name,unit,par_level,current_qty,reorder_threshold
+LINEN01,Sheets,pcs,100,84,20
+TOILET01,Toilet Paper,rolls,200,150,50

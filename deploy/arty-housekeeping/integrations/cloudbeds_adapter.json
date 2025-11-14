@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "reservationId": "reservation_id",
+    "room": "room_number",
+    "status": "status",
+    "guestName": "guest_name",
+    "nights": "nights"
+  },
+  "vendor": "cloudbeds",
+  "notes": "Example field mapping: vendor -> canonical"
+}

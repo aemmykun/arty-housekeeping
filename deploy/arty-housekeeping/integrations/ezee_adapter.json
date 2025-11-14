@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "reservation_id": "reservation_id",
+    "room_no": "room_number",
+    "status": "status",
+    "guest_name": "guest_name",
+    "arrival_date": "service_date"
+  },
+  "vendor": "ezee",
+  "notes": "eZee -> canonical field mappings"
+}

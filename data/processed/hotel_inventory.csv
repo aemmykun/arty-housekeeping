@@ -1,0 +1,16 @@
+item_code,name,unit,par_level,current_qty,reorder_threshold
+LINEN001,King Sheet Set,SET,50,35,15
+LINEN002,Queen Sheet Set,SET,75,45,20
+LINEN003,Twin Sheet Set,SET,30,25,10
+LINEN004,Bath Towel,PIECE,100,80,25
+LINEN005,Hand Towel,PIECE,100,75,30
+LINEN006,Wash Cloth,PIECE,120,90,40
+CHEM001,All Purpose Cleaner,BOTTLE,20,12,5
+CHEM002,Bathroom Cleaner,BOTTLE,15,8,3
+CHEM003,Glass Cleaner,BOTTLE,10,7,2
+AMEN001,Shampoo Bottle,BOTTLE,50,30,15
+AMEN002,Conditioner Bottle,BOTTLE,50,28,15
+AMEN003,Body Soap,BAR,100,65,25
+SUPPLY001,Toilet Paper,ROLL,200,150,50
+SUPPLY002,Tissue Box,BOX,100,80,30
+SUPPLY003,Coffee Packets,PACKET,150,120,40

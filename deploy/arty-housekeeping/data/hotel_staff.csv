@@ -1,0 +1,3 @@
+staff_id,name,role,availability,max_minutes_per_day
+1,Alice,Housekeeper,Mon-Fri,480
+2,Bob,Housekeeper,Mon-Sun,360

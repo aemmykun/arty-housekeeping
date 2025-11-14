@@ -1,0 +1,112 @@
+name: Validate Schemas
+
+on:
+  push:
+    paths:
+      - 'schemas/**'
+  pull_request:
+    paths:
+      - 'schemas/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Run schema validator
+        run: |
+          python automation/ci/validate_schemas.py
+name: Validate CSV Schemas
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'data/**/*.csv'
+      - 'schemas/**'
+      - 'tools/**'
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/**/*.csv'
+      - 'schemas/**'
+      - 'tools/**'
+
+jobs:
+  validate-headers:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        schema:
+          - { name: "rooms", csv: "schemas/rooms.schema.csv", samples: "data/processed/*rooms*.csv" }
+          - { name: "tasks", csv: "schemas/tasks.schema.csv", samples: "data/processed/*tasks*.csv" }
+          - { name: "staff", csv: "schemas/staff.schema.csv", samples: "data/processed/*staff*.csv" }
+          - { name: "inventory", csv: "schemas/inventory.schema.csv", samples: "data/processed/*inventory*.csv" }
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas
+    
+    - name: Validate ${{ matrix.schema.name }} schema headers
+      run: |
+        # Check if sample files exist for this schema
+        if ls ${{ matrix.schema.samples }} 1> /dev/null 2>&1; then
+          for sample_file in ${{ matrix.schema.samples }}; do
+            echo "Validating $sample_file against ${{ matrix.schema.csv }}"
+            python tools/csv_sanity_check.py "$sample_file" "${{ matrix.schema.csv }}"
+          done
+        else
+          echo "No sample files found for ${{ matrix.schema.name }} schema - skipping validation"
+        fi
+    
+    - name: Test HTML to CSV conversion (if samples exist)
+      run: |
+        # Test HTML conversion if raw HTML files exist
+        if ls data/raw/*.html 1> /dev/null 2>&1; then
+          for html_file in data/raw/*.html; do
+            csv_file="data/processed/test_$(basename "$html_file" .html).csv"
+            echo "Testing conversion: $html_file -> $csv_file"
+            python tools/html_to_csv.py "$html_file" "$csv_file"
+            echo "Conversion successful"
+            rm -f "$csv_file"  # Cleanup test file
+          done
+        else
+          echo "No HTML files found - skipping conversion test"
+        fi
+
+  lint-tools:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install linting dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black
+    
+    - name: Lint Python tools
+      run: |
+        # Basic linting for tools (ignore line length for minimal tools)
+        flake8 tools/ --max-line-length=120 --ignore=E501
+        
+    - name: Check Python formatting
+      run: |
+        black --check --diff tools/
