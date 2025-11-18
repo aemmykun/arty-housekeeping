@@ -3,9 +3,34 @@
 ## Overview
 This guide covers deploying ARTY™ Housekeeping Management as a PMS Add-On across different platforms and integration scenarios.
 
+## 🎯 Branch-Based Deployment Strategy
+
+This repository uses **dedicated branches for each deployment type** to keep configurations clean and organized. Before deploying, switch to the appropriate branch:
+
+```bash
+# Switch to your target deployment branch
+git checkout deploy/web      # For web deployment
+git checkout deploy/bubble   # For Bubble.io deployment
+git checkout deploy/flutter  # For Flutter mobile deployment
+git checkout deploy/docker   # For Docker deployment
+```
+
+**To create deployment branches (first time only):**
+```bash
+./create_deployment_branches.sh
+```
+
+Or use the GitHub Actions workflow: **Actions** → **Create Deployment Branches**
+
+See [BRANCH_STRUCTURE.md](BRANCH_STRUCTURE.md) for complete branch strategy details.
+
+---
+
 ## Deployment Scenarios
 
 ### 1. 🌐 **Web Application Deployment**
+
+**Branch:** `deploy/web`
 
 #### Prerequisites
 - Node.js 18+ or Python 3.9+
@@ -47,6 +72,8 @@ npm run start:production  # or gunicorn app:app
 
 ### 2. 🫧 **Bubble.io No-Code Deployment**
 
+**Branch:** `deploy/bubble`
+
 #### Data Setup
 1. **Create Data Types** in Bubble:
    ```
@@ -86,6 +113,8 @@ Use prompts/bubble_arty_dashboard_prompt.txt:
 ---
 
 ### 3. 📱 **Flutter Mobile App Deployment**
+
+**Branch:** `deploy/flutter`
 
 #### Setup Flutter Project
 ```bash
@@ -190,7 +219,9 @@ app.post('/webhooks/cloudbeds', (req, res) => {
 
 ---
 
-### 5. ☁️ **Cloud Platform Deployment**
+### 5. ☁️ **Cloud Platform Deployment (Docker)**
+
+**Branch:** `deploy/docker`
 
 #### AWS Deployment
 ```yaml

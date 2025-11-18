@@ -1,0 +1,67 @@
+name: Create Deployment Branches
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: 'Source branch to create deployment branches from'
+        required: true
+        default: 'main'
+        type: string
+
+jobs:
+  create-branches:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.source_branch }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+      - name: Create deploy/web branch
+        run: |
+          git checkout -b deploy/web || git checkout deploy/web
+          git push -u origin deploy/web || echo "Branch may already exist"
+        continue-on-error: true
+
+      - name: Create deploy/bubble branch
+        run: |
+          git checkout ${{ github.event.inputs.source_branch }}
+          git checkout -b deploy/bubble || git checkout deploy/bubble
+          git push -u origin deploy/bubble || echo "Branch may already exist"
+        continue-on-error: true
+
+      - name: Create deploy/flutter branch
+        run: |
+          git checkout ${{ github.event.inputs.source_branch }}
+          git checkout -b deploy/flutter || git checkout deploy/flutter
+          git push -u origin deploy/flutter || echo "Branch may already exist"
+        continue-on-error: true
+
+      - name: Create deploy/docker branch
+        run: |
+          git checkout ${{ github.event.inputs.source_branch }}
+          git checkout -b deploy/docker || git checkout deploy/docker
+          git push -u origin deploy/docker || echo "Branch may already exist"
+        continue-on-error: true
+
+      - name: Summary
+        run: |
+          echo "## Deployment Branches Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The following deployment branches have been created/updated:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ deploy/web" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ deploy/bubble" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ deploy/flutter" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ deploy/docker" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "See [BRANCH_STRUCTURE.md](../BRANCH_STRUCTURE.md) for usage details" >> $GITHUB_STEP_SUMMARY
