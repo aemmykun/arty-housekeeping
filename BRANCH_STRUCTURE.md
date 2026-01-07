@@ -30,48 +30,11 @@ Each deployment type has a dedicated branch to maintain clean, deployment-specif
 
 ## Creating Deployment Branches
 
-Run this script to create all deployment branches from the current clean codebase:
+To create all deployment branches from the current clean codebase, use the provided script:
 
-```bash
-#!/bin/bash
-# create_deployment_branches.sh
+See [`create_deployment_branches.sh`](./create_deployment_branches.sh) in the repository root.
 
-# Ensure we're on the latest clean code
-git checkout main
-git pull origin main
-
-# Create web deployment branch
-git checkout -b deploy/web
-git push -u origin deploy/web
-
-# Create bubble deployment branch
-git checkout main
-git checkout -b deploy/bubble
-git push -u origin deploy/bubble
-
-# Create flutter deployment branch
-git checkout main
-git checkout -b deploy/flutter
-git push -u origin deploy/flutter
-
-# Create docker deployment branch
-git checkout main
-git checkout -b deploy/docker
-git push -u origin deploy/docker
-
-# Return to main branch
-git checkout main
-
-echo "✅ All deployment branches created successfully!"
-echo ""
-echo "Branches created:"
-echo "  - deploy/web"
-echo "  - deploy/bubble"
-echo "  - deploy/flutter"
-echo "  - deploy/docker"
-```
-
-Save this as `create_deployment_branches.sh` and run:
+To run the script:
 ```bash
 chmod +x create_deployment_branches.sh
 ./create_deployment_branches.sh
