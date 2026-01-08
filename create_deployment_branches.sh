@@ -21,31 +21,28 @@ fi
 
 # Create web deployment branch
 echo "📦 Creating deploy/web branch..."
-git checkout -b deploy/web 2>/dev/null || git checkout deploy/web
+git checkout -b deploy/web $CURRENT_BRANCH 2>/dev/null || git checkout deploy/web
 git push -u origin deploy/web || echo "⚠️  Branch may already exist on remote"
 echo "✅ deploy/web created"
 echo ""
 
 # Create bubble deployment branch
 echo "🫧 Creating deploy/bubble branch..."
-git checkout $CURRENT_BRANCH
-git checkout -b deploy/bubble 2>/dev/null || git checkout deploy/bubble
+git checkout -b deploy/bubble $CURRENT_BRANCH 2>/dev/null || git checkout deploy/bubble
 git push -u origin deploy/bubble || echo "⚠️  Branch may already exist on remote"
 echo "✅ deploy/bubble created"
 echo ""
 
 # Create flutter deployment branch
 echo "📱 Creating deploy/flutter branch..."
-git checkout $CURRENT_BRANCH
-git checkout -b deploy/flutter 2>/dev/null || git checkout deploy/flutter
+git checkout -b deploy/flutter $CURRENT_BRANCH 2>/dev/null || git checkout deploy/flutter
 git push -u origin deploy/flutter || echo "⚠️  Branch may already exist on remote"
 echo "✅ deploy/flutter created"
 echo ""
 
 # Create docker deployment branch
 echo "🐳 Creating deploy/docker branch..."
-git checkout $CURRENT_BRANCH
-git checkout -b deploy/docker 2>/dev/null || git checkout deploy/docker
+git checkout -b deploy/docker $CURRENT_BRANCH 2>/dev/null || git checkout deploy/docker
 git push -u origin deploy/docker || echo "⚠️  Branch may already exist on remote"
 echo "✅ deploy/docker created"
 echo ""
