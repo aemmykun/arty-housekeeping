@@ -2,8 +2,6 @@
 # create_deployment_branches.sh
 # Script to create deployment branches for ARTY™ Housekeeping Management System
 
-set -e
-
 echo "🚀 Creating ARTY™ Deployment Branches"
 echo "======================================"
 echo ""
