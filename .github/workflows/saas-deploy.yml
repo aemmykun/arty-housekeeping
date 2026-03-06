@@ -64,4 +64,4 @@ jobs:
         if: ${{ secrets.EXPRESS_URL }}
         run: |
           echo 'Checking API health'
-          curl -fsS ${ { secrets.EXPRESS_URL } }/health || (echo 'Health check failed' && exit 1)
+          curl -fsS ${{ secrets.EXPRESS_URL }}/health || (echo 'Health check failed' && exit 1)

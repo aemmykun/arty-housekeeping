@@ -29,6 +29,7 @@ jobs:
 
       - name: Create deploy/web branch
         run: |
+          git checkout ${{ github.event.inputs.source_branch }}
           git checkout -b deploy/web || git checkout deploy/web
           git push -u origin deploy/web || echo "Branch may already exist"
         continue-on-error: true
