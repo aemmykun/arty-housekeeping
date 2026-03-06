@@ -33,7 +33,7 @@ app.post('/api/upload/csv', (req, res) => {
 app.post('/webhooks/:vendor', (req, res) => {
     const vendor = req.params.vendor;
     console.log(`Received webhook from ${vendor}:`, req.body);
-ECHO is off.
+    
     // TODO: Implement webhook processing using integrations/${vendor}/MAPPING.md
     res.status(200).send('OK');
 });
