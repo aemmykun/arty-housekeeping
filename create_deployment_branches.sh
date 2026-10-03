@@ -21,29 +21,29 @@ fi
 
 # Create web deployment branch
 echo "📦 Creating deploy/web branch..."
-git checkout -b deploy/web $CURRENT_BRANCH 2>/dev/null || git checkout deploy/web
-git push -u origin deploy/web || echo "⚠️  Branch may already exist on remote"
+git checkout -b deploy/web $CURRENT_BRANCH 2>/dev/null || git checkout deploy/web || exit 1
+git push -u origin deploy/web || { echo "❌ Failed to push deploy/web"; exit 1; }
 echo "✅ deploy/web created"
 echo ""
 
 # Create bubble deployment branch
 echo "🫧 Creating deploy/bubble branch..."
-git checkout -b deploy/bubble $CURRENT_BRANCH 2>/dev/null || git checkout deploy/bubble
-git push -u origin deploy/bubble || echo "⚠️  Branch may already exist on remote"
+git checkout -b deploy/bubble $CURRENT_BRANCH 2>/dev/null || git checkout deploy/bubble || exit 1
+git push -u origin deploy/bubble || { echo "❌ Failed to push deploy/bubble"; exit 1; }
 echo "✅ deploy/bubble created"
 echo ""
 
 # Create flutter deployment branch
 echo "📱 Creating deploy/flutter branch..."
-git checkout -b deploy/flutter $CURRENT_BRANCH 2>/dev/null || git checkout deploy/flutter
-git push -u origin deploy/flutter || echo "⚠️  Branch may already exist on remote"
+git checkout -b deploy/flutter $CURRENT_BRANCH 2>/dev/null || git checkout deploy/flutter || exit 1
+git push -u origin deploy/flutter || { echo "❌ Failed to push deploy/flutter"; exit 1; }
 echo "✅ deploy/flutter created"
 echo ""
 
 # Create docker deployment branch
 echo "🐳 Creating deploy/docker branch..."
-git checkout -b deploy/docker $CURRENT_BRANCH 2>/dev/null || git checkout deploy/docker
-git push -u origin deploy/docker || echo "⚠️  Branch may already exist on remote"
+git checkout -b deploy/docker $CURRENT_BRANCH 2>/dev/null || git checkout deploy/docker || exit 1
+git push -u origin deploy/docker || { echo "❌ Failed to push deploy/docker"; exit 1; }
 echo "✅ deploy/docker created"
 echo ""
 

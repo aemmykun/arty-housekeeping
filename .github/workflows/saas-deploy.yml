@@ -61,7 +61,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Quick health check (Render)
-        if: ${{ secrets.EXPRESS_URL }}
+        env:
+          EXPRESS_URL: ${{ secrets.EXPRESS_URL }}
         run: |
+          if [ -z "$EXPRESS_URL" ]; then
+            echo 'EXPRESS_URL not set, skipping health check'
+            exit 0
+          fi
           echo 'Checking API health'
-          curl -fsS ${{ secrets.EXPRESS_URL }}/health || (echo 'Health check failed' && exit 1)
+          curl -fsS "$EXPRESS_URL/health" || (echo 'Health check failed' && exit 1)
