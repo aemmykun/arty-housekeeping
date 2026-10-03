@@ -1,0 +1,24 @@
+name: Validate Schemas
+
+on:
+  push:
+    paths:
+      - 'schemas/**'
+  pull_request:
+    paths:
+      - 'schemas/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Run schema validator
+        run: |
+          python automation/ci/validate_schemas.py

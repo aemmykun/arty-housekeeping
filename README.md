@@ -2,6 +2,38 @@
 
 This bundle consolidates the prep we've mapped: ingest (HTML→CSV), schemas, roster/linen logic specs, UI theme tokens, and integration mappings — **without** full code. It's designed so you can drop files into your web/app repos or feed to Copilot.
 
+## Quick Start
+
+### Multiple Deployment Options
+This project supports **4 deployment types**, each with its own dedicated branch:
+
+1. **Web** (`deploy/web`) - Express.js REST API + Dashboard
+2. **Bubble** (`deploy/bubble`) - No-code Bubble.io integration  
+3. **Flutter** (`deploy/flutter`) - Mobile app for iOS/Android
+4. **Docker** (`deploy/docker`) - Containerized deployment
+
+**To set up deployment branches:**
+```bash
+./create_deployment_branches.sh
+```
+
+See [BRANCH_STRUCTURE.md](BRANCH_STRUCTURE.md) for detailed branch strategy and workflow.
+
+### Quick Deploy
+```bash
+# Web deployment
+./deploy.sh web
+
+# Bubble deployment
+./deploy.sh bubble
+
+# Flutter deployment
+./deploy.sh flutter
+
+# Docker deployment
+./deploy.sh docker
+```
+
 ## Modules
 - **File Ingest**: tools to convert HTML tables → CSV, sanity-check headers.
 - **Schemas**: canonical CSV columns for Rooms, Staff, Tasks, Inventory.
