@@ -17,10 +17,10 @@ jobs:
       - name: Install and audit
         run: |
           cd deploy/arty-housekeeping/node-server
-          npm ci
+          npm install
           npm audit --audit-level=moderate || true
           cd ../next-app
-          npm ci
+          npm install
           npm audit --audit-level=moderate || true
 
   zap-scan:
