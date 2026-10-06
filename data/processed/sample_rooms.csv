@@ -1,4 +1,4 @@
-Room Number,Room Type,Cleaning Status,Guest Count,Special Notes
+room_number,room_type,status,occupancy,notes
 101,1 Bedroom,Dirty,2,Late checkout - extra linen
 102,Studio,Clean,0,
 103,2 Bedroom,In Progress,4,VIP guest - fresh flowers
