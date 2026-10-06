@@ -1,4 +1,4 @@
-Room,Date,Service Required,Est. Time (min),Assigned To,Current Status,Comments
+room_number,service_date,service_type,estimated_minutes,assigned_staff,status,notes
 101,2025-11-14,Departure Clean,35,Maria Santos,New,Checkout 11:00 AM
 102,2025-11-14,Arrival Prep,25,,New,Checkin 3:00 PM
 103,2025-11-14,Full Service,45,John Kim,In Progress,Started 9:30 AM
